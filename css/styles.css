@@ -11,6 +11,8 @@
 }
 
 body {
+  padding-top: 80px;
+
   color: var(--main-text-color);
   background-color: var(--main-white-color);
   font-family: 'Roboto', sans-serif;
@@ -63,14 +65,21 @@ img {
 
   list-style-type: none;
 }
-.link{
+.link {
   text-decoration: none;
   color: currentColor;
 }
 
 /* Хедер */
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  width: 100%;
   border-bottom: 1px solid #ececec;
+  background-color: var(--main-white-color);
 }
 .main-nav {
   display: flex;
@@ -233,7 +242,7 @@ img {
 
 /* Модальне вікно */
 .back-drop {
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
 
   position: fixed;
@@ -247,10 +256,11 @@ img {
   background: rgba(0, 0, 0, 0.2);
 }
 .back-drop.is-hidden {
+  visibility: hidden;
   opacity: 0;
   pointer-events: none;
 }
-.back-drop.is-hidden .modal{
+.back-drop.is-hidden .modal {
   transform: translate(-50%, -50%) scale(0.5);
 }
 .modal {
@@ -261,14 +271,15 @@ img {
   left: 50%;
 
   width: 528px;
-  height: 521px;
+  min-height: 581px;
+  padding: 40px;
 
   background-color: var(--main-white-color);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: var(--border-radius);
 }
-.modal-btn {
+.modal-close {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -333,17 +344,48 @@ img {
 .icon-astronaut::before {
   background-image: url(../images/astronaut.svg);
 } */
-.benefits-icon-box{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.benefits-icon-box {
+  perspective: 600px;
   margin-bottom: var(--card-gap);
 
   width: 270px;
   height: 120px;
-  background-color: var(--background-gray);
-  border-radius: var(--border-radius);
+
+  outline: solid var(--background-gray);
 }
+.rotate {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1000ms linear;
+
+  width: 100%;
+  height: 100%;
+}
+.rotate:hover {
+  transform: rotateX(180deg);
+}
+.card {
+  backface-visibility: hidden;
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.front {
+  background-color: var(--background-gray);
+}
+.back {
+  transform: rotateX(180deg);
+
+  font-size: 14px;
+  line-height: 1.14;
+  text-transform: uppercase;
+  background-color: var(--background-gray);
+}
+
 .benefits-icon {
   width: 70px;
   height: 70px;
@@ -455,7 +497,9 @@ img {
   margin-right: 10px;
 }
 .link-socials {
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   display: flex;
   align-items: center;
@@ -526,7 +570,7 @@ img {
 }
 
 /* Контакти футер */
-.contacts-footer-box{
+.contacts-footer-box {
   margin-right: 70px;
 }
 .contacts-footer {
@@ -601,7 +645,9 @@ img {
   margin-right: 8px;
 }
 .filters-btn {
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   padding: 6px 22px;
 
@@ -632,7 +678,7 @@ img {
   margin-right: var(--card-gap);
   margin-bottom: var(--card-gap);
 }
-.link-portfolio{
+.link-portfolio {
   display: block;
 }
 .link-portfolio:hover,
@@ -671,11 +717,11 @@ img {
   top: 0;
   left: 0; */
 
-  /* /* display: inline-block;
+/* /* display: inline-block;
   content: ''; */
-  /* width: 100%;
+/* width: 100%;
   height: 100%; */
-  /* background-color: rgba(33, 150, 243, 0.9);} */
+/* background-color: rgba(33, 150, 243, 0.9);} */
 
 .overlay-text {
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -708,8 +754,7 @@ img {
   transform: translatey(0);
   /* opacity: 1; */
 }
-.overlay-bgc{
-  
+.overlay-bgc {
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: translatey(100%);
   position: absolute;
